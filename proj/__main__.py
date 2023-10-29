@@ -62,14 +62,14 @@ def main():
         start_time = time.time()
         morph_analyzer = MorphAnalyzer(lang='ru')
         word_dict = process_tokens(tokens, lambda x: morph_analyzer.parse(x)[0].normal_form)
-        output = output + '\n\n\n' + file_path.name + '\n' + re.sub('(?<=\)),', '\n', str(sorted(word_dict.items(), key=lambda x: x[1], reverse=True))) 
-        output = output + '\n' + str(time.time() - start_time)
+        output = output + '\n\n\n' + file_path.name + ' Лемматизация\n' + re.sub('(?<=\)),', '\n', str(sorted(word_dict.items(), key=lambda x: x[1], reverse=True))) 
+        output = output + '\nВремя выполнения в секундах: ' + str(time.time() - start_time)
         
         start_time = time.time()
         stemmer = stem.SnowballStemmer(language='russian')
         word_dict_stem = process_tokens(tokens, lambda x: str(stemmer.stem(x)))
-        output = output + '\n\n\n' + file_path.name + '\n' + re.sub('(?<=\)),', '\n', str(sorted(word_dict_stem.items(), key=lambda x: x[1], reverse=True)))
-        output = output + '\n' + str(time.time() - start_time)
+        output = output + '\n\n\n' + file_path.name + ' Стемминг\n' + re.sub('(?<=\)),', '\n', str(sorted(word_dict_stem.items(), key=lambda x: x[1], reverse=True)))
+        output = output + '\nВремя выполнения в секундах: ' + str(time.time() - start_time)
 
     to_path.write_text(output.strip(), encoding='utf-8')
         
